@@ -1,22 +1,11 @@
 /* eslint-disable react/prop-types */
-import {
-    Box,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Grid,
-    Paper,
-    Stack,
-    Typography,
-} from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 
-import homeImages from "/public/Images.jsx";
-console.log(homeImages[0]);
+import { homeImages, homeTitles, homeSubtitles } from "/public/Images.jsx";
 
-function CarouselPanel(props) {
+function Panel(props) {
     const styles = {
         paperStyle: {
             position: "relative",
@@ -48,14 +37,32 @@ function CarouselPanel(props) {
             <Box
                 sx={{
                     position: "relative",
-                    top: 150,
-                    pr: 2,
+                    backgroundColor: "rgba(132,61,203,.3)",
+                    top: { sm: 0, md: 120 },
                 }}
             >
-                <Typography align="right" color="white" variant="h4">
+                <Typography
+                    position="relative"
+                    //top={{ sm: 0, md: 130 }}
+                    variant="h5"
+                    align="right"
+                    color="#F5F5F5"
+                    fontWeight="bold"
+                    fontFamily="Poppins"
+                    backgroundColor="rgba(132,61,203,.3)"
+                    pr={1}
+                >
                     {props.title}
                 </Typography>
-                <Typography align="right" variant="subtitle1">
+                <Typography
+                    position="relative"
+                    //top={{ sm: 0, md: 130 }}
+                    align="right"
+                    color="#F5F5F5"
+                    variant="subtitle1"
+                    fontFamily="Poppins"
+                    pr={1}
+                >
                     {props.subtitle}
                 </Typography>
             </Box>
@@ -66,22 +73,25 @@ function CarouselPanel(props) {
 export default function MyCarousel() {
     return (
         <>
-            <Carousel>
-                <Stack
-                    direction={{
-                        xs: "column",
-                        sm: "row",
-                    }}
-                >
-                    {homeImages.map((item, i) => (
-                        <CarouselPanel
-                            key={i}
-                            img={item}
-                            title="Teste1"
-                            subtitle="Teste2"
-                        />
-                    ))}
-                </Stack>
+            <Carousel
+                navButtonsAlwaysInvisible={true}
+                indicators={false}
+                autoPlay={true}
+                animation="fade"
+                interval={3000}
+            >
+                {homeImages.map((images, i) => (
+                    <Stack key={i} direction="row">
+                        {images.map((image, j) => (
+                            <Panel
+                                key={uuidv4()}
+                                img={image}
+                                title={homeTitles[i][j]}
+                                subtitle={homeSubtitles[i][j]}
+                            />
+                        ))}
+                    </Stack>
+                ))}
             </Carousel>
         </>
     );

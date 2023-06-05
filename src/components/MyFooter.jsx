@@ -1,104 +1,91 @@
 import { Avatar, Stack, Typography } from "@mui/material";
 import { GitHub, Instagram } from "@mui/icons-material";
 
+const titleStyle = {
+    fontFamily: "Poppins",
+    textTransform: "uppercase",
+    fontWeight: "800",
+    fontSize: "24px",
+    pb: { sm: 2, md: 6 },
+    color: "#58179A",
+};
+
+const textStyle = {
+    fontFamily: "Poppins",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#843DCB",
+};
+
+const iconStyle = {
+    width: "60px",
+    height: "60px",
+    color: "#9A67CD",
+};
+
+const copyrightStyle = {
+    fontFamily: "Poppins",
+    fontWeight: "600",
+    fontSize: "16px",
+    color: "#58179A",
+};
+
 export default function MyFooter() {
     return (
-        <Stack
-            direction="row"
-            spacing={15}
-            backgroundColor="#100E12"
-            p={(1, 0, 0, 2)}
-        >
-            <Avatar
-                sx={{
-                    width: 200,
-                    height: 200,
-                    bgcolor: "#58179A",
+        <>
+            <div
+                style={{
+                    maxWidth: "100vw",
+                    background: "#100E12",
+                    padding: 20,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
                 }}
             >
-                Foto do Paulo
-            </Avatar>
-            <Stack direction="column" align="left">
-                <Typography
-                    fontFamily="Poppins"
-                    textTransform="uppercase"
-                    fontWeight="800"
-                    fontSize="24px"
-                    pb={6}
-                    color="#58179A"
+                <Stack
+                    direction={{ sm: "column", md: "row" }}
+                    spacing={{ sm: 5, md: 10 }}
+                    align="center"
                 >
-                    contato
-                </Typography>
-                <Typography
-                    fontFamily="Poppins"
-                    fontWeight="600"
-                    fontSize="18px"
-                    color="#843DCB"
-                >
-                    55 (84) 9 9999-9999
-                </Typography>
-                <Typography
-                    fontFamily="Poppins"
-                    textTransform="lowercase"
-                    fontWeight="600"
-                    fontSize="18px"
-                    color="#843DCB"
-                >
-                    paulocesarmedeiross@gmail.com
-                </Typography>
-                <Stack direction="row" spacing={1}>
-                    <GitHub
+                    <Avatar
                         sx={{
-                            width: "60px",
-                            height: "60px",
-                            color: "#9A67CD",
+                            width: 200,
+                            height: 200,
+                            bgcolor: "#58179A",
                         }}
-                    />
-                    <Instagram
-                        sx={{
-                            width: "60px",
-                            height: "60px",
-                            color: "#9A67CD",
-                        }}
-                    />
+                    >
+                        Foto do Paulo
+                    </Avatar>
+
+                    <Stack align="left">
+                        <Typography sx={titleStyle}>contato</Typography>
+                        <Typography sx={textStyle}>
+                            55 (84) 9 9999-9999
+                        </Typography>
+                        <Typography sx={textStyle}>
+                            paulocesarmedeiross@gmail.com
+                        </Typography>
+                        <Stack direction="row" spacing={1}>
+                            <GitHub sx={iconStyle} />
+                            <Instagram sx={iconStyle} />
+                        </Stack>
+                    </Stack>
+
+                    <Stack align="left">
+                        <Typography sx={titleStyle}>apoio</Typography>
+                        <Typography sx={textStyle}>UFRN</Typography>
+                        <Typography sx={textStyle}>Natalnet</Typography>
+                        <Typography sx={textStyle}>TEAM</Typography>
+                    </Stack>
                 </Stack>
-            </Stack>
-            <Stack align="left">
-                <Typography
-                    fontFamily="Poppins"
-                    textTransform="uppercase"
-                    fontWeight="800"
-                    fontSize="24px"
-                    pb={4}
-                    color="#58179A"
-                >
-                    apoio
+            </div>
+            <div style={{ background: "#100E12", paddingBottom: 10 }}>
+                <Typography align="right" sx={copyrightStyle} pr={1}>
+                    Desenvolvido por Paulo Cesar
                 </Typography>
-                <Typography
-                    fontFamily="Poppins"
-                    fontWeight="600"
-                    fontSize="18px"
-                    color="#843DCB"
-                >
-                    UFRN
-                </Typography>
-                <Typography
-                    fontFamily="Poppins"
-                    fontWeight="600"
-                    fontSize="18px"
-                    color="#843DCB"
-                >
-                    Natalnet
-                </Typography>
-                <Typography
-                    fontFamily="Poppins"
-                    fontWeight="600"
-                    fontSize="18px"
-                    color="#843DCB"
-                >
-                    TEAM
-                </Typography>
-            </Stack>
-        </Stack>
+            </div>
+        </>
     );
 }

@@ -9,10 +9,8 @@ export default function HomeBanner() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                // Change the size to fit the parent element of this div
-                width: "100%",
+                maxWidth: "100vw",
                 height: "100%",
-                objectFit: "cover",
             }}
         >
             <Box

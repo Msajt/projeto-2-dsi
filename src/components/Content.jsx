@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 
 import { homeImages } from "../../public/Images";
 
@@ -19,7 +19,7 @@ const titleStyle = {
     fontWeight: "800",
     fontSize: "40px",
     lineHeight: "60px",
-    letterSpacing: "0.25em",
+    letterSpacing: "0.25rem",
 };
 
 const textStyle = {
@@ -27,8 +27,8 @@ const textStyle = {
     paddingLeft: 4,
     fontFamily: "Poppins",
     fontWeight: "600",
-    fontSize: "24px",
-    lineHeight: "40px",
+    fontSize: { sm: "1.5rem" },
+    lineHeight: { sm: "1.5rem", md: "1.9rem", lg: "2.5rem" },
     paddingRight: 1,
 };
 

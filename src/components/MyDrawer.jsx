@@ -1,30 +1,31 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import {
+    Box,
+    Toolbar,
+    List,
+    Typography,
+    IconButton,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+} from "@mui/material";
+
 import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 
 import HomeIcon from "@mui/icons-material/Home";
+import LoginIcon from "@mui/icons-material/Login";
+import RegisterIcon from "@mui/icons-material/PersonAdd";
+import ProfileIcon from "@mui/icons-material/Person";
+import PacientsIcon from "@mui/icons-material/Group";
+import GameIcon from "@mui/icons-material/VideogameAsset";
 
-const drawerWidth = 150;
+const drawerWidth = 170;
 
 const openedMixin = (theme) => ({
+    borderRadius: "0px 5px 0px 5px",
     backgroundColor: "#843DCB",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -35,6 +36,7 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
+    borderRadius: "0px 5px 0px 5px",
     backgroundColor: "#843DCB",
     transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
@@ -51,7 +53,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: theme.spacing(0, 1),
+    padding: theme.spacing(0, 1.2),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
 }));
@@ -76,6 +78,24 @@ const Drawer = styled(MuiDrawer, {
 export default function MyDrawer() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const listItemButtonStyle = {
+        minHeight: 48,
+        justifyContent: open ? "initial" : "center",
+        px: 2.5,
+    };
+    const listItemIconStyle = {
+        minWidth: 0,
+        mr: open ? 3 : "auto",
+        justifyContent: "center",
+    };
+    const listItemTextStyle = {
+        style: {
+            fontFamily: "Poppins",
+            fontWeight: "bold",
+            fontSize: 16,
+            color: "#B8A0D0",
+        },
+    };
 
     return (
         <>
@@ -84,42 +104,111 @@ export default function MyDrawer() {
                 <Drawer variant="permanent" open={open}>
                     <DrawerHeader>
                         <IconButton onClick={() => setOpen(!open)}>
-                            <HomeIcon sx={{ fontSize: 30 }} />
+                            <HomeIcon sx={{ fontSize: 30, color: "#B8A0D0" }} />
                         </IconButton>
                     </DrawerHeader>
                     <List>
+                        {/* //TODO Fazer as condições pra cada estado */}
+                        {/* //? Login */}
                         <ListItem
                             key={1}
                             disablePadding
                             sx={{ display: "block" }}
                         >
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? "initial" : "center",
-                                    px: 2.5,
-                                }}
-                            >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : "auto",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <InboxIcon sx={{ fontSize: 30 }} />
+                            <ListItemButton sx={listItemButtonStyle}>
+                                <ListItemIcon sx={listItemIconStyle}>
+                                    <LoginIcon
+                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
+                                    />
                                 </ListItemIcon>
                                 <ListItemText
-                                    primary="Home"
+                                    primaryTypographyProps={listItemTextStyle}
+                                    primary={"Login"}
+                                    sx={{ opacity: open ? 1 : 0 }}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                        {/* //? Registrar */}
+                        <ListItem
+                            key={2}
+                            disablePadding
+                            sx={{ display: "block" }}
+                        >
+                            <ListItemButton sx={listItemButtonStyle}>
+                                <ListItemIcon sx={listItemIconStyle}>
+                                    <RegisterIcon
+                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primaryTypographyProps={listItemTextStyle}
+                                    primary={"Register"}
+                                    sx={{ opacity: open ? 1 : 0 }}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                        {/* //? Usuário */}
+                        <ListItem
+                            key={3}
+                            disablePadding
+                            sx={{ display: "block" }}
+                        >
+                            <ListItemButton sx={listItemButtonStyle}>
+                                <ListItemIcon sx={listItemIconStyle}>
+                                    <ProfileIcon
+                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primaryTypographyProps={listItemTextStyle}
+                                    primary={"Profile"}
+                                    sx={{ opacity: open ? 1 : 0 }}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                        {/* //? Pacients */}
+                        <ListItem
+                            key={4}
+                            disablePadding
+                            sx={{ display: "block" }}
+                        >
+                            <ListItemButton sx={listItemButtonStyle}>
+                                <ListItemIcon sx={listItemIconStyle}>
+                                    <PacientsIcon
+                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primaryTypographyProps={listItemTextStyle}
+                                    primary={"Pacientes"}
+                                    sx={{ opacity: open ? 1 : 0 }}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                        {/* //? Jogar */}
+                        <ListItem
+                            key={5}
+                            disablePadding
+                            sx={{ display: "block" }}
+                        >
+                            <ListItemButton sx={listItemButtonStyle}>
+                                <ListItemIcon sx={listItemIconStyle}>
+                                    <GameIcon
+                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primaryTypographyProps={listItemTextStyle}
+                                    primary={"Jogar"}
                                     sx={{ opacity: open ? 1 : 0 }}
                                 />
                             </ListItemButton>
                         </ListItem>
                     </List>
                 </Drawer>
-            </Box>
-            <Box sx={{ flex: 1, overflow: "auto" }}>
-                <Outlet />
+                <Box component="main" sx={{ flexGrow: 1 }}>
+                    <Outlet />
+                </Box>
             </Box>
         </>
     );

@@ -21,6 +21,7 @@ import RegisterIcon from "@mui/icons-material/PersonAdd";
 import ProfileIcon from "@mui/icons-material/Person";
 import PacientsIcon from "@mui/icons-material/Group";
 import GameIcon from "@mui/icons-material/VideogameAsset";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const drawerWidth = 170;
 
@@ -200,6 +201,25 @@ export default function MyDrawer() {
                                 <ListItemText
                                     primaryTypographyProps={listItemTextStyle}
                                     primary={"Jogar"}
+                                    sx={{ opacity: open ? 1 : 0 }}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                        {/* //? Logout */}
+                        <ListItem
+                            key={6}
+                            disablePadding
+                            sx={{ display: "block" }}
+                        >
+                            <ListItemButton sx={listItemButtonStyle}>
+                                <ListItemIcon sx={listItemIconStyle}>
+                                    <LogoutIcon
+                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primaryTypographyProps={listItemTextStyle}
+                                    primary={"Logout"}
                                     sx={{ opacity: open ? 1 : 0 }}
                                 />
                             </ListItemButton>

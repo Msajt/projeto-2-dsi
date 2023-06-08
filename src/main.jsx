@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import MyDrawer from "./components/MyDrawer.jsx";
 import Home from "./routes/Home.jsx";
+import Login from "./routes/Login.jsx";
 import "./index.css";
 
 //? Inicializando o React Router
@@ -16,12 +17,12 @@ const router = createBrowserRouter([
         element: <MyDrawer />,
         children: [
             {
-                path: "home",
+                path: "/home",
                 element: <Home />,
             },
             {
-                path: "home2",
-                element: <h1>Teste</h1>,
+                path: "/login",
+                element: <Login />,
             },
         ],
     },

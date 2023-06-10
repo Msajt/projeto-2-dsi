@@ -10,6 +10,7 @@ import Home from "./routes/Home.jsx";
 import Login from "./routes/Login.jsx";
 import Register from "./routes/Register.jsx";
 import UserPage from "./routes/UserPage.jsx";
+import Pacients from "./routes/Pacients.jsx";
 
 import "./index.css";
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: "/user",
                 element: <UserPage />,
+            },
+            {
+                path: "/pacients",
+                element: <Pacients />,
             },
         ],
     },

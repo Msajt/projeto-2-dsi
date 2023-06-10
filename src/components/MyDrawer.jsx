@@ -23,7 +23,7 @@ import PacientsIcon from "@mui/icons-material/Group";
 import GameIcon from "@mui/icons-material/VideogameAsset";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const drawerWidth = 170;
+const drawerWidth = "170px";
 
 const openedMixin = (theme) => ({
     borderRadius: "0px 5px 0px 5px",

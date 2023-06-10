@@ -8,6 +8,9 @@ import App from "./App.jsx";
 import MyDrawer from "./components/MyDrawer.jsx";
 import Home from "./routes/Home.jsx";
 import Login from "./routes/Login.jsx";
+import Register from "./routes/Register.jsx";
+import UserPage from "./routes/UserPage.jsx";
+
 import "./index.css";
 
 //? Inicializando o React Router
@@ -23,6 +26,14 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />,
+            },
+            {
+                path: "/register",
+                element: <Register />,
+            },
+            {
+                path: "/user",
+                element: <UserPage />,
             },
         ],
     },

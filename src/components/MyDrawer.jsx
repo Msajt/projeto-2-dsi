@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import {
@@ -22,11 +22,14 @@ import ProfileIcon from "@mui/icons-material/Person";
 import PacientsIcon from "@mui/icons-material/Group";
 import GameIcon from "@mui/icons-material/VideogameAsset";
 import LogoutIcon from "@mui/icons-material/Logout";
+import ListIcon from "@mui/icons-material/Reorder";
+import RightIcon from "@mui/icons-material/KeyboardArrowRight";
+import LeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
 const drawerWidth = "170px";
 
 const openedMixin = (theme) => ({
-    borderRadius: "0px 5px 0px 5px",
+    borderRadius: "0px 5px 5px 0px",
     backgroundColor: "#843DCB",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -37,7 +40,7 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
-    borderRadius: "0px 5px 0px 5px",
+    borderRadius: "0px 5px 5px 0px",
     backgroundColor: "#843DCB",
     transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
@@ -53,7 +56,7 @@ const closedMixin = (theme) => ({
 const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     padding: theme.spacing(0, 1.2),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -76,160 +79,243 @@ const Drawer = styled(MuiDrawer, {
     }),
 }));
 
+const listItemButtonStyle = {
+    minHeight: 48,
+    justifyContent: open ? "initial" : "center",
+    px: 2.5,
+};
+const listItemIconStyle = {
+    minWidth: 0,
+    mr: open ? 3 : "auto",
+    justifyContent: "center",
+};
+const listItemTextStyle = {
+    style: {
+        fontFamily: "Poppins",
+        fontWeight: "bold",
+        fontSize: 16,
+        color: "#B8A0D0",
+    },
+};
+
+function IdleState() {
+    return (
+        <>
+            {/* //? Home */}
+            <MyListItem
+                key={1}
+                icon=<HomeIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Início"
+                toLocation="/home"
+            />
+            {/* //? Login */}
+            <MyListItem
+                key={2}
+                icon=<LoginIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Login"
+                toLocation="/login"
+            />
+            {/* //? Registrar */}
+            <MyListItem
+                key={3}
+                icon=<RegisterIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Registrar"
+                toLocation="/register"
+            />
+        </>
+    );
+}
+
+function PacientState() {
+    return (
+        <>
+            {/* //? Home */}
+            <MyListItem
+                key={1}
+                icon=<HomeIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Início"
+                toLocation="/home"
+            />
+            {/* //? Usuário */}
+            <MyListItem
+                key={2}
+                icon=<ProfileIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Meu perfil"
+                toLocation="/user"
+            />
+            {/* //? Jogo */}
+            <MyListItem
+                key={3}
+                icon=<GameIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Jogar"
+                toLocation="/game"
+            />
+            {/* //? Logout */}
+            <MyListItem
+                key={4}
+                icon=<LogoutIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Sair"
+                toLocation="/home"
+            />
+        </>
+    );
+}
+
+function TherapystState() {
+    return (
+        <>
+            {/* //? Home */}
+            <MyListItem
+                key={1}
+                icon=<HomeIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Início"
+                toLocation="/home"
+            />
+            {/* //? Usuário */}
+            <MyListItem
+                key={2}
+                icon=<ProfileIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Meu perfil"
+                toLocation="/user"
+            />
+            {/* //? Pacientes */}
+            <MyListItem
+                key={3}
+                icon=<PacientsIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Pacientes"
+                toLocation="/pacients"
+            />
+            {/* //? Jogo */}
+            <MyListItem
+                key={4}
+                icon=<GameIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Jogar"
+                toLocation="/game"
+            />
+            {/* //? Logout */}
+            <MyListItem
+                key={5}
+                icon=<LogoutIcon
+                    sx={{
+                        fontSize: 30,
+                        color: "#B8A0D0",
+                    }}
+                />
+                iconName="Sair"
+                toLocation="/home"
+            />
+        </>
+    );
+}
+
+function MyListItem({ toLocation, icon, iconName }) {
+    return (
+        <>
+            <ListItem disablePadding sx={{ display: "block" }}>
+                <Link to={toLocation} style={{ textDecoration: "none" }}>
+                    <ListItemButton sx={listItemButtonStyle}>
+                        <ListItemIcon sx={listItemIconStyle}>
+                            {icon}
+                        </ListItemIcon>
+                        <ListItemText
+                            primaryTypographyProps={listItemTextStyle}
+                            primary={iconName}
+                            sx={{ opacity: open ? 1 : 0 }}
+                        />
+                    </ListItemButton>
+                </Link>
+            </ListItem>
+        </>
+    );
+}
+
 export default function MyDrawer() {
-    const theme = useTheme();
     const [open, setOpen] = useState(false);
-    const listItemButtonStyle = {
-        minHeight: 48,
-        justifyContent: open ? "initial" : "center",
-        px: 2.5,
-    };
-    const listItemIconStyle = {
-        minWidth: 0,
-        mr: open ? 3 : "auto",
-        justifyContent: "center",
-    };
-    const listItemTextStyle = {
-        style: {
-            fontFamily: "Poppins",
-            fontWeight: "bold",
-            fontSize: 16,
-            color: "#B8A0D0",
-        },
-    };
+    const [isLogged, setIsLogged] = useState(true);
+    const [userType, setUserType] = useState("terapeuta");
 
     return (
         <>
-            <Box sx={{ display: "flex" }}>
-                {/* <CssBaseline /> */}
-                <Drawer variant="permanent" open={open}>
-                    <DrawerHeader>
-                        <IconButton onClick={() => setOpen(!open)}>
-                            <HomeIcon sx={{ fontSize: 30, color: "#B8A0D0" }} />
-                        </IconButton>
-                    </DrawerHeader>
-                    <List>
-                        {/* //TODO Fazer as condições pra cada estado */}
-                        {/* //? Login */}
-                        <ListItem
-                            key={1}
-                            disablePadding
-                            sx={{ display: "block" }}
-                        >
-                            <ListItemButton sx={listItemButtonStyle}>
-                                <ListItemIcon sx={listItemIconStyle}>
-                                    <LoginIcon
-                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primaryTypographyProps={listItemTextStyle}
-                                    primary={"Login"}
-                                    sx={{ opacity: open ? 1 : 0 }}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                        {/* //? Registrar */}
-                        <ListItem
-                            key={2}
-                            disablePadding
-                            sx={{ display: "block" }}
-                        >
-                            <ListItemButton sx={listItemButtonStyle}>
-                                <ListItemIcon sx={listItemIconStyle}>
-                                    <RegisterIcon
-                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primaryTypographyProps={listItemTextStyle}
-                                    primary={"Register"}
-                                    sx={{ opacity: open ? 1 : 0 }}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                        {/* //? Usuário */}
-                        <ListItem
-                            key={3}
-                            disablePadding
-                            sx={{ display: "block" }}
-                        >
-                            <ListItemButton sx={listItemButtonStyle}>
-                                <ListItemIcon sx={listItemIconStyle}>
-                                    <ProfileIcon
-                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primaryTypographyProps={listItemTextStyle}
-                                    primary={"Profile"}
-                                    sx={{ opacity: open ? 1 : 0 }}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                        {/* //? Pacients */}
-                        <ListItem
-                            key={4}
-                            disablePadding
-                            sx={{ display: "block" }}
-                        >
-                            <ListItemButton sx={listItemButtonStyle}>
-                                <ListItemIcon sx={listItemIconStyle}>
-                                    <PacientsIcon
-                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primaryTypographyProps={listItemTextStyle}
-                                    primary={"Pacientes"}
-                                    sx={{ opacity: open ? 1 : 0 }}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                        {/* //? Jogar */}
-                        <ListItem
-                            key={5}
-                            disablePadding
-                            sx={{ display: "block" }}
-                        >
-                            <ListItemButton sx={listItemButtonStyle}>
-                                <ListItemIcon sx={listItemIconStyle}>
-                                    <GameIcon
-                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primaryTypographyProps={listItemTextStyle}
-                                    primary={"Jogar"}
-                                    sx={{ opacity: open ? 1 : 0 }}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                        {/* //? Logout */}
-                        <ListItem
-                            key={6}
-                            disablePadding
-                            sx={{ display: "block" }}
-                        >
-                            <ListItemButton sx={listItemButtonStyle}>
-                                <ListItemIcon sx={listItemIconStyle}>
-                                    <LogoutIcon
-                                        sx={{ fontSize: 30, color: "#B8A0D0" }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primaryTypographyProps={listItemTextStyle}
-                                    primary={"Logout"}
-                                    sx={{ opacity: open ? 1 : 0 }}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </Drawer>
-                <Box component="main" sx={{ flexGrow: 1 }}>
-                    <Outlet />
-                </Box>
-            </Box>
+            <Drawer variant="permanent" open={open}>
+                <DrawerHeader onClick={() => setOpen(!open)}>
+                    <IconButton>
+                        {!open ? (
+                            <RightIcon
+                                sx={{ fontSize: 30, color: "#B8A0D0" }}
+                            />
+                        ) : (
+                            <LeftIcon sx={{ fontSize: 30, color: "#B8A0D0" }} />
+                        )}
+                    </IconButton>
+                </DrawerHeader>
+                <List>
+                    {!isLogged ? (
+                        <IdleState />
+                    ) : userType === "paciente" ? (
+                        <PacientState />
+                    ) : (
+                        <TherapystState />
+                    )}
+                </List>
+            </Drawer>
+            {/* <Box component="main" sx={{ flexGrow: 1 }}> */}
+            <Outlet />
+            {/* </Box> */}
         </>
     );
 }

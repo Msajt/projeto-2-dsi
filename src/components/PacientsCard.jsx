@@ -29,11 +29,11 @@ const iconsArray = [
     },
     {
         icon: <CoinIcon sx={{ fontSize: 30, color: "#58179A" }} />,
-        name: "Moedas coletadas",
+        name: "Moedas totais",
     },
     {
         icon: <EnergyIcon sx={{ fontSize: 30, color: "#58179A" }} />,
-        name: "Energias coletadas",
+        name: "Energias totais",
     },
     {
         icon: <CollisionIcon sx={{ fontSize: 30, color: "#58179A" }} />,

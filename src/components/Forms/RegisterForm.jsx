@@ -26,14 +26,11 @@ const styles = {
     },
     backgroundBoxStyle: {
         position: "absolute",
-        left: 0,
-        right: 0,
-        top: 25,
-        zIndex: -1,
-        margin: "0 auto",
         width: "100%",
-        height: 400,
-        backgroundColor: "#58179A",
+        background: "#58179A",
+        height: "calc(100% - 50px)",
+        top: "25px",
+        zIndex: -1,
     },
     titleStyle: {
         fontFamily: "Poppins",

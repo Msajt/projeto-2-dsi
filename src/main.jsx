@@ -40,6 +40,10 @@ const router = createBrowserRouter([
                 path: "/pacients",
                 element: <Pacients />,
             },
+            {
+                path: "/game",
+                element: <h1>Colocar componente Game</h1>,
+            },
         ],
     },
 ]);

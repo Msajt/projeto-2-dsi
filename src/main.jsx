@@ -11,6 +11,7 @@ import Login from "./routes/Login.jsx";
 import Register from "./routes/Register.jsx";
 import UserPage from "./routes/UserPage.jsx";
 import Pacients from "./routes/Pacients.jsx";
+import Game from "./routes/Game.jsx";
 
 import "./index.css";
 
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
         element: <MyDrawer />,
         children: [
             {
-                path: "/home",
+                path: "/",
                 element: <Home />,
             },
             {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/game",
-                element: <h1>Colocar componente Game</h1>,
+                element: <Game />,
             },
         ],
     },

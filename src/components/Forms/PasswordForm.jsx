@@ -107,7 +107,7 @@ function CustomTextField({
 
 export default function PasswordForm() {
     return (
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", marginBottom: 25 }}>
             <Container align="center">
                 <Paper elevation={10} padding={10} sx={styles.paperStyle}>
                     {/* //? Título */}

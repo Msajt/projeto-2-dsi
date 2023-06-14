@@ -5,20 +5,37 @@ export default function HomeBanner() {
     return (
         <div
             style={{
-                display: "flex",
-                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                maxWidth: "100vw",
-                height: "100%",
             }}
         >
             <Box
-                width={{ sm: 800, md: 900, lg: 1600 }}
-                height={300}
-                backgroundColor="#58179A"
-                pr={15}
+                sx={{
+                    maxWidth: "calc(100% + 100px)",
+                    background: "#58179A",
+                    height: "300px",
+                }}
+                justifyContent="flex-end"
+                alignItems="center"
             >
+                <Typography
+                    fontSize={{ xs: 80, sm: 110 }}
+                    fontFamily="Poppins"
+                    fontWeight="bold"
+                    align="right"
+                >
+                    Virtualter
+                </Typography>
+                <Typography
+                    fontSize={{ xs: 80, sm: 110 }}
+                    fontFamily="Poppins"
+                    fontWeight="bold"
+                    align="right"
+                >
+                    Web
+                </Typography>
+            </Box>
+            {/* <Box height={300} backgroundColor="#58179A" pr={15}>
                 <Typography
                     variant="h1"
                     fontFamily="Poppins"
@@ -35,7 +52,7 @@ export default function HomeBanner() {
                 >
                     Web
                 </Typography>
-            </Box>
+            </Box> */}
         </div>
     );
 }

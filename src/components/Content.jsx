@@ -1,4 +1,4 @@
-import { Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography, Box } from "@mui/material";
 
 import { homeImages } from "../../public/Images";
 
@@ -38,6 +38,7 @@ export default function Content() {
             <div
                 style={{
                     backgroundColor: "#D9D9D9",
+                    position: "relative",
                 }}
             >
                 <Stack direction="row">

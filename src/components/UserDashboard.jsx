@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
     Paper,
     Stack,
@@ -5,6 +6,7 @@ import {
     Typography,
     Container,
     Grid,
+    Box,
 } from "@mui/material";
 import GamesPlayedIcon from "@mui/icons-material/PlayArrow";
 import TimePlayedIcon from "@mui/icons-material/AccessTime";
@@ -38,15 +40,33 @@ const styles = {
 };
 
 const iconsArray = [
-    <GamesPlayedIcon sx={styles.iconStyle} />,
-    <TimePlayedIcon sx={styles.iconStyle} />,
-    <CoinIcon sx={styles.iconStyle} />,
-    <EnergyIcon sx={styles.iconStyle} />,
-    <CollisionIcon sx={styles.iconStyle} />,
-    <PrecisionIcon sx={styles.iconStyle} />,
+    {
+        icon: <GamesPlayedIcon sx={styles.iconStyle} />,
+        name: "Vezes jogadas",
+    },
+    {
+        icon: <TimePlayedIcon sx={styles.iconStyle} />,
+        name: "Tempo jogado",
+    },
+    {
+        icon: <CoinIcon sx={styles.iconStyle} />,
+        name: "Moedas totais",
+    },
+    {
+        icon: <EnergyIcon sx={styles.iconStyle} />,
+        name: "Energias totais",
+    },
+    {
+        icon: <CollisionIcon sx={styles.iconStyle} />,
+        name: "Colisões totais",
+    },
+    {
+        icon: <PrecisionIcon sx={styles.iconStyle} />,
+        name: "Precisão total",
+    },
 ];
 
-function UserData({ icon }) {
+function UserData({ iconImage, iconName }) {
     return (
         <Paper
             sx={{
@@ -61,7 +81,7 @@ function UserData({ icon }) {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                {icon}
+                {iconImage}
                 <Stack direction="column" spacing={1} justifyContent="flex-end">
                     <Typography
                         align="right"
@@ -72,7 +92,7 @@ function UserData({ icon }) {
                             fontWeight: 700,
                         }}
                     >
-                        Vezes jogadas
+                        {iconName}
                     </Typography>
                     <Typography
                         align="right"
@@ -93,7 +113,17 @@ function UserData({ icon }) {
 
 export default function UserDashboard() {
     return (
-        <>
+        <div style={{ position: "relative" }}>
+            <Box
+                sx={{
+                    position: "absolute",
+                    width: "100%",
+                    background: "#58179A",
+                    height: "calc(100% - 50px)",
+                    top: "25px",
+                    zIndex: -1,
+                }}
+            />
             <Container align="center">
                 {/* //? Usuário */}
                 <Paper sx={styles.paperStyle} elevation={5}>
@@ -161,12 +191,15 @@ export default function UserDashboard() {
                     >
                         {iconsArray.map((item, i) => (
                             <Grid item key={i} xs={1} sm={3}>
-                                <UserData icon={iconsArray[i]} />
+                                <UserData
+                                    iconImage={item.icon}
+                                    iconName={item.name}
+                                />
                             </Grid>
                         ))}
                     </Grid>
                 </Paper>
             </Container>
-        </>
+        </div>
     );
 }

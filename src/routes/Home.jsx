@@ -10,19 +10,16 @@ import MyCarousel from "../components/MyCarousel";
 import Content from "../components/Content";
 //? Footer
 import MyFooter from "../components/MyFooter";
-//? Drawbar Menu
-import MyDrawer from "../components/MyDrawer";
 
 export default function HomePage() {
     return (
-        <div>
+        <>
             <Container>
-                {/* <MyDrawer /> */}
                 <HomeBanner />
                 <MyCarousel />
                 <Content />
                 <MyFooter />
             </Container>
-        </div>
+        </>
     );
 }

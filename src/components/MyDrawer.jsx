@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Outlet, Link } from "react-router-dom";
 import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
@@ -111,7 +112,7 @@ function IdleState() {
                     }}
                 />
                 iconName="Início"
-                toLocation="/home"
+                toLocation="/"
             />
             {/* //? Login */}
             <MyListItem
@@ -154,7 +155,7 @@ function PacientState() {
                     }}
                 />
                 iconName="Início"
-                toLocation="/home"
+                toLocation="/"
             />
             {/* //? Usuário */}
             <MyListItem
@@ -190,7 +191,7 @@ function PacientState() {
                     }}
                 />
                 iconName="Sair"
-                toLocation="/home"
+                toLocation="/"
             />
         </>
     );
@@ -209,7 +210,7 @@ function TherapystState() {
                     }}
                 />
                 iconName="Início"
-                toLocation="/home"
+                toLocation="/"
             />
             {/* //? Usuário */}
             <MyListItem
@@ -257,7 +258,7 @@ function TherapystState() {
                     }}
                 />
                 iconName="Sair"
-                toLocation="/home"
+                toLocation="/"
             />
         </>
     );

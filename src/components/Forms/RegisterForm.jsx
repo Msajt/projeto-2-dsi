@@ -79,151 +79,255 @@ const theme = createTheme({
     },
 });
 
-function CustomTextField({
-    customId,
-    customLabel,
-    customPlaceholder,
-    customType,
-}) {
-    return (
-        <ThemeProvider theme={theme}>
-            <TextField
-                id={customId}
-                size="small"
-                variant="filled"
-                color="primary"
-                sx={styles.textFieldStyle}
-                fullWidth
-                label={customLabel}
-                type={customType}
-                placeholder={customPlaceholder}
-                required
-            ></TextField>
-        </ThemeProvider>
-    );
-}
-
-function UserTypeSelection() {
-    const [value, setValue] = useState("pacient");
-
-    const handleChange = (event) => {
-        setValue(event.target.value);
+export default function RegisterForm() {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [userType, setUserType] = useState("paciente");
+    const userData = {
+        firstName,
+        lastName,
+        email,
+        password,
+        userType,
+        gamesPlayed: 0,
+        timePlayed: 0,
+        totalCoins: 0,
+        totalEnergies: 0,
+        totalCollisions: 0,
+        totalPrecision: 0,
     };
 
-    return (
-        <FormControl>
-            <Typography
-                align="left"
-                sx={{
-                    fontFamily: "Poppins",
-                    color: "#58179A",
-                    fontWeight: 500,
-                }}
-            >
-                tipo de usuário
-            </Typography>
-            <RadioGroup row value={value} onChange={handleChange}>
-                <Container>
-                    <FormControlLabel
-                        value="pacient"
-                        control={
-                            <Radio
-                                sx={{
-                                    color: "#58179A",
-                                }}
-                            />
-                        }
-                        label={
-                            <Typography
-                                sx={{
-                                    fontFamily: "Poppins",
-                                    color: "#58179A",
-                                }}
-                            >
-                                Paciente
-                            </Typography>
-                        }
-                    />
-                    <FormControlLabel
-                        value="therapist"
-                        control={
-                            <Radio
-                                sx={{
-                                    color: "#58179A",
-                                }}
-                            />
-                        }
-                        label={
-                            <Typography
-                                sx={{
-                                    fontFamily: "Poppins",
-                                    color: "#58179A",
-                                }}
-                            >
-                                Terapeuta
-                            </Typography>
-                        }
-                    />
-                </Container>
-            </RadioGroup>
-        </FormControl>
-    );
-}
+    function CustomTextField({
+        customId,
+        customLabel,
+        customPlaceholder,
+        customType,
+    }) {
+        return (
+            <ThemeProvider theme={theme}>
+                <TextField
+                    id={customId}
+                    size="small"
+                    variant="filled"
+                    color="primary"
+                    sx={styles.textFieldStyle}
+                    fullWidth
+                    label={customLabel}
+                    type={customType}
+                    placeholder={customPlaceholder}
+                    //required
+                />
+            </ThemeProvider>
+        );
+    }
 
-export default function RegisterForm() {
+    function UserTypeSelection() {
+        return (
+            <FormControl>
+                <Typography
+                    align="left"
+                    sx={{
+                        fontFamily: "Poppins",
+                        color: "#58179A",
+                        fontWeight: 500,
+                    }}
+                >
+                    tipo de usuário
+                </Typography>
+                <RadioGroup
+                    row
+                    value={userType}
+                    onChange={(e) => setUserType(e.target.value)}
+                >
+                    <Container>
+                        <FormControlLabel
+                            value="paciente"
+                            control={
+                                <Radio
+                                    sx={{
+                                        color: "#58179A",
+                                    }}
+                                />
+                            }
+                            label={
+                                <Typography
+                                    sx={{
+                                        fontFamily: "Poppins",
+                                        color: "#58179A",
+                                    }}
+                                >
+                                    Paciente
+                                </Typography>
+                            }
+                        />
+                        <FormControlLabel
+                            value="terapeuta"
+                            control={
+                                <Radio
+                                    sx={{
+                                        color: "#58179A",
+                                    }}
+                                />
+                            }
+                            label={
+                                <Typography
+                                    sx={{
+                                        fontFamily: "Poppins",
+                                        color: "#58179A",
+                                    }}
+                                >
+                                    Terapeuta
+                                </Typography>
+                            }
+                        />
+                    </Container>
+                </RadioGroup>
+            </FormControl>
+        );
+    }
+
+    function handleRegister(e) {
+        e.preventDefault();
+
+        fetch("http://localhost:3000/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                userType: userData.userType,
+                gamesPlayed: 0,
+                timePlayed: 0,
+                totalCoins: 0,
+                totalEnergies: 0,
+                totalCollisions: 0,
+                totalPrecision: 0,
+            }),
+        });
+
+        fetch("http://localhost:3000/authentication", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: userData.email,
+                password: userData.password,
+            }),
+        });
+
+        console.log(userData);
+    }
+
+    function clearField() {
+        document.getElementById("register-firstname").value = "";
+        document.getElementById("register-lastname").value = "";
+        document.getElementById("register-email").value = "";
+        document.getElementById("register-password").value = "";
+    }
+
     return (
         <div style={{ position: "relative" }}>
-            <Box sx={styles.backgroundBoxStyle} />
-            <Container align="center">
-                <Paper elevation={10} padding={10} sx={styles.paperStyle}>
-                    {/* //? Título */}
-                    <Typography sx={styles.titleStyle} variant="h2" pb="1rem">
-                        Registro
-                    </Typography>
-                    <Stack spacing={1} mb={2}>
-                        <Stack
-                            spacing={1}
-                            direction={{ xs: "column", sm: "row" }}
+            <form onSubmit={handleRegister}>
+                <Box sx={styles.backgroundBoxStyle} />
+                <Container align="center">
+                    <Paper elevation={10} padding={10} sx={styles.paperStyle}>
+                        {/* //? Título */}
+                        <Typography
+                            sx={styles.titleStyle}
+                            variant="h2"
+                            pb="1rem"
                         >
-                            <CustomTextField
-                                customId="register-firstname"
-                                customLabel="nome"
-                                customPlaceholder="Insira o seu nome..."
-                                customType="name"
-                            />
-                            <CustomTextField
-                                customId="register-lastname"
-                                customLabel="sobrenome"
-                                customPlaceholder="Insira o seu sobrenome..."
-                                customType="name"
-                            />
-                        </Stack>
-                        {/* //? email */}
-                        <CustomTextField
-                            customId="register-email"
-                            customLabel="email"
-                            customPlaceholder="Insira seu email..."
-                            customType="email"
-                        />
-                        {/* //? senha */}
-                        <CustomTextField
-                            customId="register-password"
-                            customLabel="senha"
-                            customPlaceholder="Insira sua senha..."
-                            customType="password"
-                        />
+                            Registro
+                        </Typography>
                         <ThemeProvider theme={theme}>
-                            <UserTypeSelection />
-                            {/* //? Botão - Entrar */}
-                            <Button variant="contained" color="primary">
-                                <Typography sx={styles.buttonStyle}>
-                                    Registre-se
-                                </Typography>
-                            </Button>
+                            <Stack spacing={1} mb={2}>
+                                <Stack
+                                    spacing={1}
+                                    direction={{ xs: "column", sm: "row" }}
+                                >
+                                    {/* //? Nome */}
+                                    <TextField
+                                        id="register-firstname"
+                                        size="small"
+                                        variant="filled"
+                                        color="primary"
+                                        sx={styles.textFieldStyle}
+                                        fullWidth
+                                        label="nome"
+                                        type="name"
+                                        placeholder="Insira o seu nome..."
+                                        onChange={(e) =>
+                                            setFirstName(e.target.value)
+                                        }
+                                        required
+                                    />
+                                    {/* //? Sobrenome */}
+                                    <TextField
+                                        id="register-lastname"
+                                        label="sobrenome"
+                                        placeholder="Insira o seu sobrenome..."
+                                        type="name"
+                                        size="small"
+                                        variant="filled"
+                                        color="primary"
+                                        sx={styles.textFieldStyle}
+                                        fullWidth
+                                        onChange={(e) =>
+                                            setLastName(e.target.value)
+                                        }
+                                        required
+                                    />
+                                </Stack>
+
+                                {/* //? Email */}
+                                <TextField
+                                    id="register-email"
+                                    size="small"
+                                    variant="filled"
+                                    color="primary"
+                                    sx={styles.textFieldStyle}
+                                    fullWidth
+                                    label="email"
+                                    type="email"
+                                    placeholder="Insira seu email..."
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                                {/* //? senha */}
+                                <TextField
+                                    id="register-password"
+                                    size="small"
+                                    variant="filled"
+                                    color="primary"
+                                    sx={styles.textFieldStyle}
+                                    fullWidth
+                                    label="senha"
+                                    type="password"
+                                    placeholder="Insira sua senha..."
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    required
+                                />
+                                <UserTypeSelection />
+                                {/* //? Botão - Entrar */}
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    //onClick={clearField}
+                                >
+                                    <Typography sx={styles.buttonStyle}>
+                                        Registre-se
+                                    </Typography>
+                                </Button>
+                            </Stack>
                         </ThemeProvider>
-                    </Stack>
-                </Paper>
-            </Container>
+                    </Paper>
+                </Container>
+            </form>
         </div>
     );
 }

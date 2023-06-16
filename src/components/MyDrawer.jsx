@@ -287,7 +287,7 @@ function MyListItem({ toLocation, icon, iconName }) {
 
 export default function MyDrawer() {
     const [open, setOpen] = useState(false);
-    const [isLogged, setIsLogged] = useState(true);
+    const [isLogged, setIsLogged] = useState(false);
     const [userType, setUserType] = useState("terapeuta");
 
     return (

@@ -14,6 +14,8 @@ import CoinIcon from "@mui/icons-material/Toll";
 import EnergyIcon from "@mui/icons-material/FlashOn";
 import CollisionIcon from "@mui/icons-material/CompareArrows";
 import PrecisionIcon from "@mui/icons-material/CrisisAlert";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const styles = {
     paperStyle: {
@@ -66,7 +68,7 @@ const iconsArray = [
     },
 ];
 
-function UserData({ iconImage, iconName }) {
+function UserData({ iconImage, iconName, dataValue }) {
     return (
         <Paper
             sx={{
@@ -103,7 +105,7 @@ function UserData({ iconImage, iconName }) {
                             fontWeight: 700,
                         }}
                     >
-                        00000
+                        {dataValue}
                     </Typography>
                 </Stack>
             </Stack>
@@ -112,6 +114,38 @@ function UserData({ iconImage, iconName }) {
 }
 
 export default function UserDashboard() {
+    const { state } = useLocation();
+    const [user, setUser] = useState({});
+    const [userStats, setUserStats] = useState([]);
+    console.log(`Testando dados: ${state.id}`);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/users/${state.id}`)
+            .then((res) => res.json())
+            .then((userData) => {
+                setUser(userData);
+                const {
+                    gamesPlayed,
+                    timePlayed,
+                    totalCoins,
+                    totalEnergies,
+                    totalCollisions,
+                    totalPrecision,
+                } = userData;
+
+                setUserStats([
+                    gamesPlayed,
+                    timePlayed,
+                    totalCoins,
+                    totalEnergies,
+                    totalCollisions,
+                    totalPrecision,
+                ]);
+            });
+    }, [state.id]);
+
+    //console.log("Testando dados: ", email);
+
     return (
         <div style={{ position: "relative" }}>
             <Box
@@ -131,7 +165,7 @@ export default function UserDashboard() {
                     <Stack direction="row" justifyContent="space-between">
                         <Avatar
                             sx={styles.avatarStyle}
-                            src="https://robohash.org/link.png?size=200x200"
+                            src={`https://robohash.org/${user.email}?size=200x200`}
                         />
                         <Stack
                             direction="column"
@@ -147,7 +181,7 @@ export default function UserDashboard() {
                                         color: "#58179A",
                                     }}
                                 >
-                                    Nome Sobrenome
+                                    {`${user.firstName} ${user.lastName}`}
                                 </Typography>
                                 <Typography
                                     align="right"
@@ -157,7 +191,7 @@ export default function UserDashboard() {
                                         color: "#843DCB",
                                     }}
                                 >
-                                    email@email.com
+                                    {`${user.email}`}
                                 </Typography>
                             </Stack>
                             <Typography
@@ -168,7 +202,7 @@ export default function UserDashboard() {
                                     color: "#9A67CD",
                                 }}
                             >
-                                tipo de usuário
+                                {user.userType}
                             </Typography>
                         </Stack>
                     </Stack>
@@ -194,6 +228,7 @@ export default function UserDashboard() {
                                 <UserData
                                     iconImage={item.icon}
                                     iconName={item.name}
+                                    dataValue={userStats[i]}
                                 />
                             </Grid>
                         ))}

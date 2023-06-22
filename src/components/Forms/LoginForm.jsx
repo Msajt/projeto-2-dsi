@@ -11,7 +11,8 @@ import {
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const styles = {
     paperStyle: {
@@ -99,54 +100,103 @@ function CustomTextField({
 }
 
 export default function LoginForm() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    function handleLogin(e) {
+        e.preventDefault();
+
+        fetch("http://localhost:3000/authentication", {
+            method: "GET",
+        })
+            .then((res) => res.json())
+            .then((users) => {
+                const isPlayer = users.findIndex(
+                    (user) => user.email === email && user.password === password
+                );
+                if (isPlayer !== -1)
+                    navigate("/user", { state: { id: users[isPlayer].id } });
+                console.log(`Login: ${isPlayer}`);
+            });
+        //console.log(email, password);
+    }
+
     return (
         <div style={{ position: "relative" }}>
-            <Box sx={styles.backgroundBoxStyle} />
-            <Container align="center">
-                <Paper elevation={10} padding={10} sx={styles.paperStyle}>
-                    {/* //? Título */}
-                    <Typography sx={styles.titleStyle} variant="h2" pb="1rem">
-                        Login
-                    </Typography>
-                    <Stack spacing={1} mb={2}>
-                        {/* //? email */}
-                        <CustomTextField
-                            customId="login-email"
-                            customLabel="email"
-                            customPlaceholder="Insira seu email..."
-                            customType="email"
-                        />
-                        {/* //? senha */}
-                        <CustomTextField
-                            customId="login-password"
-                            customLabel="senha"
-                            customPlaceholder="Insira sua senha..."
-                            customType="password"
-                        />
-                        <ThemeProvider theme={theme}>
-                            {/* //? Botão - Entrar */}
-                            <Button variant="contained" color="primary">
-                                <Typography sx={styles.buttonStyle}>
-                                    Entrar
-                                </Typography>
-                            </Button>
-                        </ThemeProvider>
-                    </Stack>
-                    {/* //! LINKS  */}
-                    {/* //? Esqueci a senha  */}
-                    <Link to="/">
-                        <Typography sx={styles.linkTextStyle}>
-                            Esqueci minha senha
+            <form onSubmit={handleLogin}>
+                <Box sx={styles.backgroundBoxStyle} />
+                <Container align="center">
+                    <Paper elevation={10} padding={10} sx={styles.paperStyle}>
+                        {/* //? Título */}
+                        <Typography
+                            sx={styles.titleStyle}
+                            variant="h2"
+                            pb="1rem"
+                        >
+                            Login
                         </Typography>
-                    </Link>
-                    {/* //? Voltar ao /home  */}
-                    <Link to="/home">
-                        <Typography sx={styles.linkTextStyle}>
-                            Voltar à página inicial
-                        </Typography>
-                    </Link>
-                </Paper>
-            </Container>
+                        <Stack spacing={1} mb={2}>
+                            <ThemeProvider theme={theme}>
+                                {/* //? email */}
+                                <TextField
+                                    id="login-email"
+                                    size="small"
+                                    variant="filled"
+                                    color="primary"
+                                    sx={styles.textFieldStyle}
+                                    fullWidth
+                                    label="email"
+                                    type="email"
+                                    placeholder="Insira seu email..."
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                                {/* //? senha */}
+                                <TextField
+                                    id="login-password"
+                                    size="small"
+                                    variant="filled"
+                                    color="primary"
+                                    sx={styles.textFieldStyle}
+                                    fullWidth
+                                    label="senha"
+                                    type="password"
+                                    placeholder="Insira sua senha..."
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    required
+                                />
+
+                                {/* //? Botão - Entrar */}
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    <Typography sx={styles.buttonStyle}>
+                                        Entrar
+                                    </Typography>
+                                </Button>
+                            </ThemeProvider>
+                        </Stack>
+                        {/* //! LINKS  */}
+                        {/* //? Esqueci a senha  */}
+                        <Link to="/">
+                            <Typography sx={styles.linkTextStyle}>
+                                Esqueci minha senha
+                            </Typography>
+                        </Link>
+                        {/* //? Voltar ao /home  */}
+                        <Link to="/home">
+                            <Typography sx={styles.linkTextStyle}>
+                                Voltar à página inicial
+                            </Typography>
+                        </Link>
+                    </Paper>
+                </Container>
+            </form>
         </div>
     );
 }

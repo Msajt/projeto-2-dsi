@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import {
@@ -286,9 +286,12 @@ function MyListItem({ toLocation, icon, iconName }) {
 }
 
 export default function MyDrawer() {
+    const { state } = useLocation();
     const [open, setOpen] = useState(false);
     const [isLogged, setIsLogged] = useState(false);
     const [userType, setUserType] = useState("terapeuta");
+
+    console.log(`Testando location no Drawer: ${state}`);
 
     return (
         <>

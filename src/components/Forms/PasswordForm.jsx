@@ -106,40 +106,98 @@ function CustomTextField({
 }
 
 export default function PasswordForm() {
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const userId = sessionStorage.getItem("sessionUserId");
+
+    function handleChangePassword(e) {
+        e.preventDefault();
+        console.log(oldPassword, newPassword);
+
+        fetch(`http://localhost:3000/authentication/${userId}`, {
+            method: "GET",
+        })
+            .then((res) => res.json())
+            .then((user) => {
+                if (user.password == oldPassword) {
+                    fetch(`http://localhost:3000/authentication/${userId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            id: userId,
+                            email: user.email,
+                            password: newPassword,
+                        }),
+                    }).then((res) => console.log(res.json()));
+                }
+            });
+
+        document.getElementById("userPage-oldPassword").value = "";
+        document.getElementById("userPage-newPassword").value = "";
+    }
+
     return (
         <div style={{ position: "relative", marginBottom: 25 }}>
-            <Container align="center">
-                <Paper elevation={10} padding={10} sx={styles.paperStyle}>
-                    {/* //? Título */}
-                    <Typography sx={styles.titleStyle} variant="h2" pb="2rem">
-                        alterar senha
-                    </Typography>
-                    <Stack spacing={1} mb={2}>
-                        {/* //? email */}
-                        <CustomTextField
-                            customId="userPage-oldPassword"
-                            customLabel="senha atual"
-                            customPlaceholder="Insira sua senha atual..."
-                            customType="password"
-                        />
-                        {/* //? senha */}
-                        <CustomTextField
-                            customId="userPage-newPassword"
-                            customLabel="nova senha"
-                            customPlaceholder="Insira sua nova senha..."
-                            customType="password"
-                        />
-                        <ThemeProvider theme={theme}>
-                            {/* //? Botão - Entrar */}
-                            <Button variant="contained" color="primary">
-                                <Typography sx={styles.buttonStyle}>
-                                    Alterar
-                                </Typography>
-                            </Button>
-                        </ThemeProvider>
-                    </Stack>
-                </Paper>
-            </Container>
+            <form onSubmit={handleChangePassword}>
+                <Container align="center">
+                    <Paper elevation={10} padding={10} sx={styles.paperStyle}>
+                        {/* //? Título */}
+                        <Typography
+                            sx={styles.titleStyle}
+                            variant="h2"
+                            pb="2rem"
+                        >
+                            alterar senha
+                        </Typography>
+                        <Stack spacing={1} mb={2}>
+                            <ThemeProvider theme={theme}>
+                                {/* //? senha antiga */}
+                                <TextField
+                                    id="userPage-oldPassword"
+                                    size="small"
+                                    variant="filled"
+                                    color="primary"
+                                    sx={styles.textFieldStyle}
+                                    fullWidth
+                                    label="senha atual"
+                                    type="password"
+                                    placeholder="Insira sua senha atual..."
+                                    required
+                                    onChange={(e) =>
+                                        setOldPassword(e.target.value)
+                                    }
+                                />
+                                {/* //? senha nova */}
+                                <TextField
+                                    id="userPage-newPassword"
+                                    size="small"
+                                    variant="filled"
+                                    color="primary"
+                                    sx={styles.textFieldStyle}
+                                    fullWidth
+                                    label="nova senha"
+                                    type="password"
+                                    placeholder="Insira sua nova senha..."
+                                    required
+                                    onChange={(e) =>
+                                        setNewPassword(e.target.value)
+                                    }
+                                />
+                                {/* //? Botão - Mudar */}
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    <Typography sx={styles.buttonStyle}>
+                                        Alterar
+                                    </Typography>
+                                </Button>
+                            </ThemeProvider>
+                        </Stack>
+                    </Paper>
+                </Container>
+            </form>
         </div>
     );
 }

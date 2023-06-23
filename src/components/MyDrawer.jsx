@@ -295,7 +295,7 @@ export default function MyDrawer() {
     const { state } = useLocation();
     const [open, setOpen] = useState(false);
     const [isLogged, setIsLogged] = useState(false);
-    const [userType, setUserType] = useState("terapeuta");
+    const [userType, setUserType] = useState("");
 
     //console.log(`Testando location no Drawer: ${state}`);
     //setIsLoggqed(sessionStorage.getItem("isLogged"));
@@ -303,9 +303,9 @@ export default function MyDrawer() {
     useEffect(() => {
         setIsLogged(sessionStorage.getItem("isLogged"));
         setUserType(sessionStorage.getItem("sessionUserType"));
-    }, [setIsLogged, setUserType]);
+    }, [userType]);
 
-    console.log("Drawer: ", sessionStorage.getItem("sessionUserType"));
+    console.log("Testando Drawer: ", userType);
 
     return (
         <>

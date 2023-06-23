@@ -122,7 +122,7 @@ export default function LoginForm() {
                 );
                 if (isPlayer !== -1) {
                     await loginData(users[isPlayer].id);
-                    navigate("/user", { state: { id: users[isPlayer].id } });
+                    navigate("/user");
                 }
                 console.log(`Login: ${isPlayer}, ${users[isPlayer]}`);
             });

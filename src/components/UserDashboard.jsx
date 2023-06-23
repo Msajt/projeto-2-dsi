@@ -117,10 +117,18 @@ export default function UserDashboard() {
     const { state } = useLocation();
     const [user, setUser] = useState({});
     const [userStats, setUserStats] = useState([]);
-    console.log(`Testando dados: ${state.id}`);
+    const sessionUserId = sessionStorage.getItem("sessionUserId");
+
+    //console.log(`Testando dados: ${state.id}`);
+    console.log(
+        `Testando sessionStorage: \n
+        Usuário logado: ${sessionStorage.getItem("isLogged")}\n
+        Id do usuário: ${sessionUserId}
+        Tipo do usuário: ${sessionStorage.getItem("sessionUserType")}`
+    );
 
     useEffect(() => {
-        fetch(`http://localhost:3000/users/${state.id}`)
+        fetch(`http://localhost:3000/users/${sessionUserId}`)
             .then((res) => res.json())
             .then((userData) => {
                 setUser(userData);
@@ -142,8 +150,9 @@ export default function UserDashboard() {
                     totalPrecision,
                 ]);
             });
-    }, [state.id]);
+    }, [sessionUserId]);
 
+    sessionStorage.setItem("sessionUserType", user.userType);
     //console.log("Testando dados: ", email);
 
     return (

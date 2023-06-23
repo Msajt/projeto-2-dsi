@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import {
     Box,
@@ -192,6 +192,7 @@ function PacientState() {
                 />
                 iconName="Sair"
                 toLocation="/"
+                clicked={() => sessionStorage.clear()}
             />
         </>
     );
@@ -259,16 +260,21 @@ function TherapystState() {
                 />
                 iconName="Sair"
                 toLocation="/"
+                clicked={() => sessionStorage.clear()}
             />
         </>
     );
 }
 
-function MyListItem({ toLocation, icon, iconName }) {
+function MyListItem({ toLocation, icon, iconName, clicked }) {
     return (
         <>
             <ListItem disablePadding sx={{ display: "block" }}>
-                <Link to={toLocation} style={{ textDecoration: "none" }}>
+                <Link
+                    to={toLocation}
+                    style={{ textDecoration: "none" }}
+                    onClick={clicked}
+                >
                     <ListItemButton sx={listItemButtonStyle}>
                         <ListItemIcon sx={listItemIconStyle}>
                             {icon}
@@ -291,7 +297,15 @@ export default function MyDrawer() {
     const [isLogged, setIsLogged] = useState(false);
     const [userType, setUserType] = useState("terapeuta");
 
-    console.log(`Testando location no Drawer: ${state}`);
+    //console.log(`Testando location no Drawer: ${state}`);
+    //setIsLoggqed(sessionStorage.getItem("isLogged"));
+
+    useEffect(() => {
+        setIsLogged(sessionStorage.getItem("isLogged"));
+        setUserType(sessionStorage.getItem("sessionUserType"));
+    }, [setIsLogged, setUserType]);
+
+    console.log("Drawer: ", sessionStorage.getItem("sessionUserType"));
 
     return (
         <>

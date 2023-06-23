@@ -104,6 +104,11 @@ export default function LoginForm() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+    async function loginData(userId) {
+        sessionStorage.setItem("isLogged", 1);
+        sessionStorage.setItem("sessionUserId", userId);
+    }
+
     function handleLogin(e) {
         e.preventDefault();
 
@@ -111,13 +116,15 @@ export default function LoginForm() {
             method: "GET",
         })
             .then((res) => res.json())
-            .then((users) => {
+            .then(async (users) => {
                 const isPlayer = users.findIndex(
                     (user) => user.email === email && user.password === password
                 );
-                if (isPlayer !== -1)
+                if (isPlayer !== -1) {
+                    await loginData(users[isPlayer].id);
                     navigate("/user", { state: { id: users[isPlayer].id } });
-                console.log(`Login: ${isPlayer}`);
+                }
+                console.log(`Login: ${isPlayer}, ${users[isPlayer]}`);
             });
         //console.log(email, password);
     }

@@ -1,5 +1,6 @@
 import { Avatar, Stack, Typography, Link } from "@mui/material";
 import { GitHub, Instagram } from "@mui/icons-material";
+import avatarPhoto from "/avatar-footer.png";
 
 const titleStyle = {
     fontFamily: "Poppins",
@@ -84,9 +85,8 @@ export default function MyFooter() {
                             height: 200,
                             bgcolor: "#58179A",
                         }}
-                    >
-                        Foto
-                    </Avatar>
+                        src={avatarPhoto}
+                    ></Avatar>
 
                     <Stack align="left">
                         <Typography sx={styles.title}>contato</Typography>

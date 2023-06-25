@@ -108,6 +108,7 @@ function CustomTextField({
 export default function PasswordForm() {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(false);
     const userId = sessionStorage.getItem("sessionUserId");
 
     function handleChangePassword(e) {
@@ -119,7 +120,7 @@ export default function PasswordForm() {
         })
             .then((res) => res.json())
             .then((user) => {
-                if (user.password == oldPassword) {
+                if (user.password === oldPassword) {
                     fetch(`http://localhost:3000/authentication/${userId}`, {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
@@ -128,9 +129,12 @@ export default function PasswordForm() {
                             email: user.email,
                             password: newPassword,
                         }),
-                    }).then((res) => console.log(res.json()));
+                    }).then((res) => setErrorMessage(false));
+                } else {
+                    setErrorMessage(true);
                 }
-            });
+            })
+            .catch((err) => "Houve um erro em PasswordForm: ", err.message);
 
         document.getElementById("userPage-oldPassword").value = "";
         document.getElementById("userPage-newPassword").value = "";
@@ -193,6 +197,21 @@ export default function PasswordForm() {
                                         Alterar
                                     </Typography>
                                 </Button>
+                                {errorMessage ? (
+                                    <Typography
+                                        sx={{
+                                            ...styles.linkTextStyle,
+                                            color: "#F5F5F5",
+                                            textDecoration: "none",
+                                            //fontWeight: "bold",
+                                            //WebkitTextStroke: "1px black",
+                                        }}
+                                    >
+                                        Senha incorreta, tente novamente
+                                    </Typography>
+                                ) : (
+                                    ""
+                                )}
                             </ThemeProvider>
                         </Stack>
                     </Paper>

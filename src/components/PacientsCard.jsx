@@ -100,7 +100,7 @@ export default function PacientCards() {
         );
     }
 
-    function Card(userInfo) {
+    function Card({ userInfo }) {
         const {
             gamesPlayed,
             timePlayed,
@@ -108,7 +108,7 @@ export default function PacientCards() {
             totalEnergies,
             totalCollisions,
             totalPrecision,
-        } = userInfo.userInfo;
+        } = userInfo;
         const userGameData = [
             gamesPlayed,
             timePlayed,
@@ -133,7 +133,7 @@ export default function PacientCards() {
                                         width: 100,
                                         height: 100,
                                     }}
-                                    src={`https://robohash.org/${userInfo.userInfo.email}?size=200x200`}
+                                    src={`https://robohash.org/${userInfo.email}?size=200x200`}
                                 />
 
                                 <Stack
@@ -152,7 +152,7 @@ export default function PacientCards() {
                                         }}
                                         flexWrap="wrap"
                                     >
-                                        {`${userInfo.userInfo.firstName} ${userInfo.userInfo.lastName}`}
+                                        {`${userInfo.firstName} ${userInfo.lastName}`}
                                     </Typography>
                                     <Typography
                                         align="right"
@@ -163,7 +163,7 @@ export default function PacientCards() {
                                             color: "#B8A0D0",
                                         }}
                                     >
-                                        {userInfo.userInfo.email}
+                                        {userInfo.email}
                                     </Typography>
                                 </Stack>
                             </Stack>

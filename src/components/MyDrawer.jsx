@@ -303,9 +303,14 @@ export default function MyDrawer() {
     useEffect(() => {
         setIsLogged(sessionStorage.getItem("isLogged"));
         setUserType(sessionStorage.getItem("sessionUserType"));
-    }, [userType]);
+        console.log("Testando Drawer: ", userType);
+    }, [sessionStorage.getItem("sessionUserType")]);
 
-    console.log("Testando Drawer: ", userType);
+    function changeDrawer(isLoggedIn, user) {
+        if (!isLoggedIn) return <IdleState />;
+        else if (user === "paciente") return <PacientState />;
+        else if (user === "terapeuta") return <TherapystState />;
+    }
 
     return (
         <>

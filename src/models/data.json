@@ -1,78 +1,96 @@
 {
-    "authentication": [
-        {
-            "id": 1,
-            "email": "testeEmail01@gmail.com",
-            "password": "1234567"
-        },
-        {
-            "id": 2,
-            "email": "testeEmail02@gmail.com",
-            "password": "123456"
-        },
-        {
-            "email": "teste03@gmail.com",
-            "password": "123456",
-            "id": 3
-        },
-        {
-            "email": "teste04@gmail.com",
-            "password": "1234567",
-            "id": 4
-        }
-    ],
-    "users": [
-        {
-            "id": 1,
-            "email": "testeEmail01@gmail.com",
-            "firstName": "Teste",
-            "lastName": "01",
-            "userType": "terapeuta",
-            "gamesPlayed": 1,
-            "timePlayed": 10,
-            "totalCoins": 20,
-            "totalEnergies": 20,
-            "totalCollisions": 150,
-            "totalPrecision": 0.2
-        },
-        {
-            "id": 2,
-            "email": "testeEmail02@gmail.com",
-            "firstName": "Teste",
-            "lastName": "02",
-            "userType": "paciente",
-            "gamesPlayed": 5,
-            "timePlayed": 200,
-            "totalCoins": 100,
-            "totalEnergies": 40,
-            "totalCollisions": 10,
-            "totalPrecision": 0.1
-        },
-        {
-            "firstName": "teste",
-            "lastName": "03",
-            "userType": "paciente",
-            "email": "teste03@gmail.com",
-            "gamesPlayed": 0,
-            "timePlayed": 0,
-            "totalCoins": 0,
-            "totalEnergies": 0,
-            "totalCollisions": 0,
-            "totalPrecision": 0,
-            "id": 3
-        },
-        {
-            "firstName": "teste",
-            "lastName": "04",
-            "email": "teste04@gmail.com",
-            "userType": "terapeuta",
-            "gamesPlayed": 0,
-            "timePlayed": 0,
-            "totalCoins": 0,
-            "totalEnergies": 0,
-            "totalCollisions": 0,
-            "totalPrecision": 0,
-            "id": 4
-        }
-    ]
+  "authentication": [
+    {
+      "id": 1,
+      "email": "testeEmail01@gmail.com",
+      "password": "1234567"
+    },
+    {
+      "id": 2,
+      "email": "testeEmail02@gmail.com",
+      "password": "123456"
+    },
+    {
+      "email": "teste03@gmail.com",
+      "password": "123456",
+      "id": 3
+    },
+    {
+      "email": "teste04@gmail.com",
+      "password": "1234567",
+      "id": 4
+    },
+    {
+      "email": "teste05@gmail.com",
+      "password": "12345",
+      "id": 5
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "testeEmail01@gmail.com",
+      "firstName": "Teste",
+      "lastName": "01",
+      "userType": "terapeuta",
+      "gamesPlayed": 1,
+      "timePlayed": 10,
+      "totalCoins": 20,
+      "totalEnergies": 20,
+      "totalCollisions": 150,
+      "totalPrecision": 0.2
+    },
+    {
+      "id": 2,
+      "email": "testeEmail02@gmail.com",
+      "firstName": "Teste",
+      "lastName": "02",
+      "userType": "paciente",
+      "gamesPlayed": 5,
+      "timePlayed": 200,
+      "totalCoins": 100,
+      "totalEnergies": 40,
+      "totalCollisions": 10,
+      "totalPrecision": 0.1
+    },
+    {
+      "firstName": "teste",
+      "lastName": "03",
+      "userType": "paciente",
+      "email": "teste03@gmail.com",
+      "gamesPlayed": 0,
+      "timePlayed": 0,
+      "totalCoins": 0,
+      "totalEnergies": 0,
+      "totalCollisions": 0,
+      "totalPrecision": 0,
+      "id": 3
+    },
+    {
+      "firstName": "teste",
+      "lastName": "04",
+      "email": "teste04@gmail.com",
+      "userType": "terapeuta",
+      "gamesPlayed": 0,
+      "timePlayed": 0,
+      "totalCoins": 0,
+      "totalEnergies": 0,
+      "totalCollisions": 0,
+      "totalPrecision": 0,
+      "id": 4
+    },
+    {
+      "firstName": "Teste",
+      "lastName": "05",
+      "email": "teste05@gmail.com",
+      "userType": "paciente",
+      "gamesPlayed": 0,
+      "timePlayed": 0,
+      "totalCoins": 0,
+      "totalEnergies": 0,
+      "totalCollisions": 0,
+      "totalPrecision": 0,
+      "id": 5
+    }
+  ]
 }

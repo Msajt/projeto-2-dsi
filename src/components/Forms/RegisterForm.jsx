@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const styles = {
     paperStyle: {
@@ -80,11 +80,13 @@ const theme = createTheme({
 });
 
 export default function RegisterForm() {
+    const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userType, setUserType] = useState("paciente");
+    const [errorMessage, setErrorMessage] = useState(false);
     const userData = {
         firstName,
         lastName,
@@ -192,32 +194,49 @@ export default function RegisterForm() {
         e.preventDefault();
 
         fetch("http://localhost:3000/users", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                firstName: userData.firstName,
-                lastName: userData.lastName,
-                email: userData.email,
-                userType: userData.userType,
-                gamesPlayed: 0,
-                timePlayed: 0,
-                totalCoins: 0,
-                totalEnergies: 0,
-                totalCollisions: 0,
-                totalPrecision: 0,
-            }),
-        });
+            method: "GET",
+        })
+            .then((res) => res.json())
+            .then((users) => {
+                const existentUser = users.find(
+                    (user) => user.email === userData.email
+                );
 
-        fetch("http://localhost:3000/authentication", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: userData.email,
-                password: userData.password,
-            }),
-        });
+                if (!existentUser) {
+                    fetch("http://localhost:3000/users", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            firstName: userData.firstName,
+                            lastName: userData.lastName,
+                            email: userData.email,
+                            userType: userData.userType,
+                            gamesPlayed: 0,
+                            timePlayed: 0,
+                            totalCoins: 0,
+                            totalEnergies: 0,
+                            totalCollisions: 0,
+                            totalPrecision: 0,
+                        }),
+                    });
 
-        console.log(userData);
+                    fetch("http://localhost:3000/authentication", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: userData.email,
+                            password: userData.password,
+                        }),
+                    });
+                    setErrorMessage(false);
+                } else setErrorMessage(true);
+            })
+            .catch((err) =>
+                console.log("Houve um erro em RegisterForm: ", err.message)
+            );
+
+        clearField();
+        //console.log(userData);
     }
 
     function clearField() {
@@ -323,6 +342,21 @@ export default function RegisterForm() {
                                         Registre-se
                                     </Typography>
                                 </Button>
+                                {errorMessage ? (
+                                    <Typography
+                                        sx={{
+                                            ...styles.linkTextStyle,
+                                            color: "#F5F5F5",
+                                            textDecoration: "none",
+                                            //fontWeight: "bold",
+                                            //WebkitTextStroke: "1px black",
+                                        }}
+                                    >
+                                        Email existente, tente novamente
+                                    </Typography>
+                                ) : (
+                                    ""
+                                )}
                             </Stack>
                         </ThemeProvider>
                     </Paper>

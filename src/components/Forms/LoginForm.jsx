@@ -102,6 +102,7 @@ function CustomTextField({
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(false);
     const navigate = useNavigate();
 
     async function loginData(userId) {
@@ -123,9 +124,10 @@ export default function LoginForm() {
                 if (isPlayer !== -1) {
                     await loginData(users[isPlayer].id);
                     navigate("/user");
-                }
+                } else setErrorMessage(true);
                 console.log(`Login: ${isPlayer}, ${users[isPlayer]}`);
-            });
+            })
+            .catch((err) => <Typography>Houve um erro</Typography>);
         //console.log(email, password);
     }
 
@@ -187,6 +189,21 @@ export default function LoginForm() {
                                     </Typography>
                                 </Button>
                             </ThemeProvider>
+                            {errorMessage ? (
+                                <Typography
+                                    sx={{
+                                        ...styles.linkTextStyle,
+                                        color: "#F5F5F5",
+                                        textDecoration: "none",
+                                        //fontWeight: "bold",
+                                        //WebkitTextStroke: "1px black",
+                                    }}
+                                >
+                                    Erro nas credenciais
+                                </Typography>
+                            ) : (
+                                ""
+                            )}
                         </Stack>
                         {/* //! LINKS  */}
                         {/* //? Esqueci a senha  */}
